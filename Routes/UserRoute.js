@@ -3,13 +3,23 @@ const User = require("../Models/UserModel");
 const Router = express.Router();
 
 Router.get("/",async(req, res) => {
-    const data = await User.find({});
-    res.json(data);
+   try{
+        const data = await User.find({});
+        res.json(data);
+   }
+   catch(err){
+    res.status(500).json({ error: err.message });
+   }
 })
 
 Router.get("/:id",async(req, res) => {
-    const data = await User.findById(req.params.id);
-    res.json(data);
+    try{
+        const data = await User.findById(req.params.id);
+        res.json(data);
+    }
+    catch(err){
+        res.status(500).json({ error: err.message });
+    }
 });
 
 Router.post("/", async (req, res) => {
